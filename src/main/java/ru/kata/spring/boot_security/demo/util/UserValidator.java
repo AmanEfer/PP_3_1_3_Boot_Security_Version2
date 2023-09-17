@@ -26,12 +26,10 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        System.out.println("Inside 'UserValidator.validate()'");
         User checkedPerson = (User) target;
         Optional<User> foundUser = userRepository.findUserByUsername(checkedPerson.getUsername());
 
         if (foundUser.isPresent()) {
-            System.out.println("Inside 'UserValidator.validate()': user is exists");
             errors.rejectValue("username", "", "User already exists");
         }
     }

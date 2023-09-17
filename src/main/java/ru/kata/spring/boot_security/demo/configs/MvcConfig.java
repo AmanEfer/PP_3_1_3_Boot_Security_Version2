@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
-        System.out.println("Inside 'MvcConfig.addViewControllers()'");
         registry.addViewController("/").setViewName("index");
     }
 }

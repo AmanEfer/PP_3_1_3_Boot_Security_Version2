@@ -5,18 +5,16 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-//@ToString
+@ToString
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -67,13 +65,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role;
     }
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return this.getRole().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-//                .collect(Collectors.toSet());
-
-//    }
 
     @Override
     public String getUsername() {
@@ -105,8 +96,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s : %s", username, role);
-    }
 }
