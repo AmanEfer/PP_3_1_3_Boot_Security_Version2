@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            background-color: #EFEFEF;
+        }
+
+        .container {
+            text-align: center;
+            padding: 100px;
+        }
+
+        .welcome {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .auth-button {
+            background-color: #002855;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .auth-input {
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .right-top-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="welcome">
+        <p>LOGIN PAGE</p>
+    </div>
+
+    <form action="/process_login" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <input type="text" name="username" class="auth-input" placeholder="Username"/><br/>
+        <input type="password" name="password" class="auth-input" placeholder="Password"/><br/>
+        <button type="submit" class="auth-button">LOGIN</button>
+    </form>
+</div>
+
+<div th:if="${param.error}" style="color: red; text-align: center;">
+    <div style="font-weight: bold;">Wrong username or password</div>
+</div>
+
+<a href="/" class="auth-button right-top-button">MAIN PAGE</a>
+
+</body>
+</html>

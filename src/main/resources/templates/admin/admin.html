@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+    body {
+      background-color: #EFEFEF;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .welcome {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .auth-button {
+      background-color: #002855;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .right-top-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #002855;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="welcome">
+    <h1 th:inline="text">welcome to admin page</h1>
+  </div>
+</div>
+
+<div class="container">
+  <a th:href="@{/admin/new}" class="auth-button">CREATE NEW USER</a>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>Last name</th>
+    <th>Show</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.getUsername()}"></td>
+    <td th:text="${user.getLastName()}"></td>
+    <td>
+      <form th:action="@{/admin/{id}(id=${user.getId()})}">
+        <input type="submit" value="SHOW"/>
+      </form>
+    </td>
+    <td>
+      <form th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+        <input type="submit" value="EDIT"/>
+      </form>
+    </td>
+    <td>
+      <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+        <input type="submit" value="DELETE"/>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<a th:href="@{/}" class="auth-button right-top-button">LOGOUT</a>
+
+</body>
+</html>

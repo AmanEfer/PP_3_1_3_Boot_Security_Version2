@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <style>
+        body {
+            background-color: #EFEFEF;
+        }
+
+        .container {
+            text-align: center;
+            padding: 100px;
+        }
+
+        .welcome {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .auth-button {
+            background-color: #002855;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .reg-button {
+            background-color: #002855;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
+
 <body>
-<h1>Welcome to Index PAGE!</h1>
-
-
+<div class="container">
+    <div class="welcome">
+        <p>Welcome to Index PAGE!</p>
+    </div>
+    <a th:href="@{/auth/login}" class="auth-button">AUTHENTICATE</a>
+    <a th:href="@{/auth/registration}" class="reg-button">REGISTRATE</a>
+</div>
 </body>
 </html>
