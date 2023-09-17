@@ -40,7 +40,7 @@
 
 <div class="container">
     <div class="welcome">
-        <p>REGISTRATION PAGE</p>
+        <p>CREATE NEW USER</p>
     </div>
     <form th:method="POST" th:action="@{/admin/new}" th:object="${user}">
         <input type="text" th:field="*{username}" id="username" class="auth-input" placeholder="Username">
@@ -64,7 +64,7 @@
     </form>
 </div>
 
-<a href="/" class="auth-button right-top-button">MAIN PAGE</a>
+<a href="/admin" class="auth-button right-top-button">ADMIN PAGE</a>
 
 </body>
 </html>

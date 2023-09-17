@@ -63,17 +63,17 @@ public class User implements UserDetails {
         this.salary = salary;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return role;
+    }
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
 //        return this.getRole().stream()
 //                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
 //                .collect(Collectors.toSet());
-//    }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role;
-    }
+//    }
 
     @Override
     public String getUsername() {

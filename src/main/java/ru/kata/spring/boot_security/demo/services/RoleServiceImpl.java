@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 
@@ -18,8 +19,12 @@ public class RoleServiceImpl implements RoleService{
     }
 
     @Override
-    public Optional<Role> getRoleByName(String name) {
+    public Role getRoleByName(String name) {
         System.out.println("Inside 'RoleServiceImpl.getRoleByName()'");
-        return roleRepository.findRoleByName(name);
+        return roleRepository.findRoleByName(name).orElse(null);
+    }
+@Override
+    public List<Role> getAllRoles() {
+        return roleRepository.findAll();
     }
 }

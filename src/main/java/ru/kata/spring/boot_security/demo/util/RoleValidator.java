@@ -20,6 +20,7 @@ public class RoleValidator {
 
     private boolean validate(User user, String checkingRole) {
         System.out.println("Inside 'RoleValidator.validate()'");
+        System.out.println(checkingRole);
         return user.getRole().stream()
                 .map(Role::getName)
                 .anyMatch(roleName -> roleName.equalsIgnoreCase(checkingRole));

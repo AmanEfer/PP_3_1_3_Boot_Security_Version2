@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.services.RegistrationService;
+import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 import ru.kata.spring.boot_security.demo.util.UserValidator;
 
@@ -17,16 +19,16 @@ import ru.kata.spring.boot_security.demo.util.UserValidator;
 public class AdminController {
 
     private final UserService userService;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final UserValidator userValidator;
     private final RegistrationService registrationService;
 
 
     @Autowired
-    public AdminController(UserService userService, RoleRepository roleRepository,
+    public AdminController(UserService userService, RoleService roleService,
                            UserValidator userValidator, RegistrationService registrationService) {
         this.userService = userService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
         this.userValidator = userValidator;
         this.registrationService = registrationService;
     }
@@ -49,7 +51,7 @@ public class AdminController {
     public String newUser(Model model) {
         System.out.println("Inside 'AdminController.newUser()'");
         model.addAttribute("user", new User());
-        model.addAttribute("roles", roleRepository);
+        model.addAttribute("roles", roleService);
         return "admin/new";
     }
 
@@ -77,14 +79,17 @@ public class AdminController {
         User user = userService.getUser(id);
         model.addAttribute("user", user);
         System.out.println(user);
-        model.addAttribute("roles", roleRepository);
+        model.addAttribute("roles", roleService);
         return "admin/edit";
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id,
+                             @RequestParam("selectedRole") String selectedRole) {
         System.out.println("Inside 'AdminController.updateUser()': before update");
         System.out.println(user);
+        Role newRole = new Role(selectedRole);
+        user.getRole().add(newRole);
         userService.updateUser(id, user);
         System.out.println("Inside 'AdminController.updateUser()': after update");
         System.out.println(user);
